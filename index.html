@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Cloudinary</title>
+</head>
+<body>
+
+    <h1>Cargar imagen</h1>
+
+    <button id="btnImagen">Seleccionar imagen</button>
+
+    <br><br>
+
+    <img
+        id="vistaPrevia"
+        width="200"
+        alt="Imagen cargada"
+        style="display: none;"
+    >
+
+    <p id="resultado"></p>
+
+    <script src="https://upload-widget.cloudinary.com/latest/global/all.js"></script>
+
+    <script>
+        const btnImagen = document.getElementById("btnImagen");
+        const vistaPrevia = document.getElementById("vistaPrevia");
+        const resultado = document.getElementById("resultado");
+
+        const widget = cloudinary.createUploadWidget(
+            {
+                cloudName: "hea9gd9f",
+                uploadPreset: "Taller",
+                sources: ["local", "camera"],
+                multiple: false,
+                resourceType: "image",
+                maxFileSize: 3000000,
+                clientAllowedFormats: ["jpg", "jpeg", "png", "webp"]
+            },
+            (error, respuesta) => {
+                if (error) {
+                    console.error(error);
+                    resultado.textContent = "Ocurrió un error al subir la imagen.";
+                    return;
+                }
+
+                if (respuesta.event === "success") {
+                    const imagenUrl = respuesta.info.secure_url;
+
+                    vistaPrevia.src = imagenUrl;
+                    vistaPrevia.style.display = "block";
+
+                    resultado.textContent = imagenUrl;
+
+                    console.log("URL de la imagen:", imagenUrl);
+                }
+            }
+        );
+
+        btnImagen.addEventListener("click", () => {
+            widget.open();
+        });
+    </script>
+
+</body>
+</html>
