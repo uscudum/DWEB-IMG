@@ -10,7 +10,7 @@ Ingresar a [Cloudinary](https://cloudinary.com/) y crear una cuenta gratuita. Pa
 
 En el panel principal de Cloudinary, localizar la sección **Product Environment** y copiar el valor de **Cloud name**.
 
-En este proyecto se utiliza:
+El código sería similar a:
 
 ```javascript
 cloudName: "hea9gd9f"
